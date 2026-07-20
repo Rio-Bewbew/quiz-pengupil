@@ -20,19 +20,19 @@ def submit_register(driver, base_url, name, email, username, password,
                     repassword, bypass_html5_validation=False):
     open_register(driver, base_url)
     driver.find_element(By.NAME, "name").send_keys(name)
-    driver.find_element(By.NAME, "email").send_keys(email)
+    email_field = driver.find_element(By.NAME, "email")
+    email_field.send_keys(email)
     driver.find_element(By.NAME, "username").send_keys(username)
     driver.find_element(By.NAME, "password").send_keys(password)
-    repass_field = driver.find_element(By.NAME, "repassword")
-    repass_field.send_keys(repassword)
+    driver.find_element(By.NAME, "repassword").send_keys(repassword)
     if bypass_html5_validation:
+        # Ubah type="email" → type="text" via JS agar constraint validasi
+        # HTML5 hilang total, lalu submit normal. Ini lebih reliable daripada
+        # novalidate karena langsung menghapus constraint di level elemen.
         driver.execute_script(
-            "arguments[0].form.setAttribute('novalidate', '');",
-            repass_field
+            "arguments[0].setAttribute('type', 'text');", email_field
         )
-        driver.find_element(By.NAME, "submit").click()
-    else:
-        driver.find_element(By.NAME, "submit").click()
+    driver.find_element(By.NAME, "submit").click()
 
 
 def get_error_alert_text(driver):
