@@ -32,7 +32,7 @@ def submit_register(driver, base_url, name, email, username, password,
         # Melewati constraint validation HTML5 milik browser (mis. format
         # email) dengan submit form via JS langsung — dipakai untuk menguji
         # apakah SERVER (bukan browser) benar-benar memvalidasi input (RG-09).
-        driver.execute_script("arguments[0].form.submit();", repass_field)
+        driver.execute_script("arguments[0].form.setAttribute('novalidate', '');", repass_field)`n        driver.find_element(By.NAME, "submit").click()
     else:
         driver.find_element(By.NAME, "submit").click()
 

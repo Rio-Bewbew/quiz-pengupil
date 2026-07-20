@@ -47,7 +47,7 @@ def clean_db():
 
 
 @pytest.fixture
-def existing_user():
+def existing_user(clean_db):
     """DRIVER: menyuntikkan satu user valid langsung ke DB (bypass UI),
     sebagai prasyarat untuk test case login sukses / duplikasi registrasi."""
     creds = {"username": "budi01", "password": "Password123",
