@@ -31,16 +31,16 @@ def php_server():
     proc.wait(timeout=5)
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def clean_db():
+    """Bukan autouse — hanya dipakai test yang benar-benar butuh DB bersih."""
     reset_users_table()
     yield
 
 
 @pytest.fixture
 def existing_user():
-    # Reset + seed dalam satu fixture, tidak bergantung pada
-    # urutan autouse clean_db agar tidak terjadi race condition.
+    """Reset + seed dalam satu fixture tanpa bergantung autouse."""
     reset_users_table()
     creds = {"username": "budi01", "password": "Password123",
              "name": "Budi Santoso", "email": "budi@example.test"}
