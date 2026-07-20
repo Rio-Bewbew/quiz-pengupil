@@ -31,7 +31,7 @@ jobs:
       DB_USER: root
       DB_PASS: root
       DB_NAME: quiz_pengupil
-      BASE_URL: http://localhost/quiz-pengupil
+      BASE_URL: http://127.0.0.1:8000
 
     steps:
       - name: Checkout repository
