@@ -1,5 +1,3 @@
-"""Helper tipis di atas Selenium supaya test_login.py / test_register.py
-lebih mudah dibaca (bukan Page Object penuh, cukup untuk kebutuhan quiz ini)."""
 from selenium.webdriver.common.by import By
 
 
@@ -19,7 +17,7 @@ def submit_login(driver, base_url, username, password):
 
 
 def submit_register(driver, base_url, name, email, username, password,
-                     repassword, bypass_html5_validation=False):
+                    repassword, bypass_html5_validation=False):
     open_register(driver, base_url)
     driver.find_element(By.NAME, "name").send_keys(name)
     driver.find_element(By.NAME, "email").send_keys(email)
@@ -27,9 +25,11 @@ def submit_register(driver, base_url, name, email, username, password,
     driver.find_element(By.NAME, "password").send_keys(password)
     repass_field = driver.find_element(By.NAME, "repassword")
     repass_field.send_keys(repassword)
-
-  if bypass_html5_validation:
-        driver.execute_script("arguments[0].form.setAttribute('novalidate', '');", repass_field)
+    if bypass_html5_validation:
+        driver.execute_script(
+            "arguments[0].form.setAttribute('novalidate', '');",
+            repass_field
+        )
         driver.find_element(By.NAME, "submit").click()
     else:
         driver.find_element(By.NAME, "submit").click()
