@@ -28,11 +28,9 @@ def submit_register(driver, base_url, name, email, username, password,
     repass_field = driver.find_element(By.NAME, "repassword")
     repass_field.send_keys(repassword)
 
-    if bypass_html5_validation:
-        # Melewati constraint validation HTML5 milik browser (mis. format
-        # email) dengan submit form via JS langsung — dipakai untuk menguji
-        # apakah SERVER (bukan browser) benar-benar memvalidasi input (RG-09).
-        driver.execute_script("arguments[0].form.setAttribute('novalidate', '');", repass_field)`n        driver.find_element(By.NAME, "submit").click()
+  if bypass_html5_validation:
+        driver.execute_script("arguments[0].form.setAttribute('novalidate', '');", repass_field)
+        driver.find_element(By.NAME, "submit").click()
     else:
         driver.find_element(By.NAME, "submit").click()
 
